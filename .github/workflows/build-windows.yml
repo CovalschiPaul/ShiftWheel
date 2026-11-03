@@ -1,0 +1,72 @@
+name: Build Windows installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'assets/*preview.png'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'assets/*preview.png'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  installer:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-optional.txt
+      - name: Install media test tools
+        run: |
+          choco install ffmpeg --yes --no-progress --limit-output
+          if ($LASTEXITCODE -ne 0) { throw 'FFmpeg installation failed.' }
+          ffmpeg -version
+          if ($LASTEXITCODE -ne 0) { throw 'FFmpeg is not on PATH.' }
+          ffprobe -version
+          if ($LASTEXITCODE -ne 0) { throw 'FFprobe is not on PATH.' }
+      - name: Build and test installer
+        run: ./build_windows.ps1 -PythonExe (Get-Command python).Source
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShiftWheel-Windows-${{ github.run_number }}
+          path: |
+            release/ShiftWheelSetup-*.exe
+            release/SHA256.txt
+            release/build-dependencies.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-diagnostics-${{ github.run_number }}
+          path: |
+            build/test-results.xml
+            build/package-check.json
+            build/ShiftWheel/warn-ShiftWheel.txt
+          if-no-files-found: warn
+          retention-days: 14

@@ -1,0 +1,6 @@
+PySide6-Essentials>=6.6,<7
+pynput>=1.7.7,<2; sys_platform == "win32"
+Pillow>=10.4,<13
+pypdf>=6,<7
+PyMuPDF>=1.24,<2
+openpyxl>=3.1,<4
