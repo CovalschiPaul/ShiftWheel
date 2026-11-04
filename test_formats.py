@@ -182,7 +182,7 @@ def test_all_sheets_export(workbook):
     first = Path(workbook).with_name("multiple sheets_sheet1.csv")
     assert "=B2*2" in first.read_text(encoding="utf-8-sig")
     second = Path(workbook).with_name("multiple sheets_sheet2.json")
-    assert json.loads(second.read_text())[1] == ["Ștefan", 123]
+    assert json.loads(second.read_text(encoding="utf-8"))[1] == ["Ștefan", 123]
 
 
 def test_missing_office_error(monkeypatch, rtf):
