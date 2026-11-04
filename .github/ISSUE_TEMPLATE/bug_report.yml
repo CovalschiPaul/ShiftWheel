@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible ShiftWheel problem
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "Use synthetic samples. Remove private paths and document content from logs. See SECURITY.md for sensitive reports."
+  - type: input
+    id: version
+    attributes:
+      label: ShiftWheel and Windows versions
+      placeholder: "ShiftWheel 3.5, Windows 11 x64"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: "Include source/target formats and whether you used dragging or the file picker."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result and actual result
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Error and environment
+      description: "Relevant redacted log lines; external engine versions if applicable."

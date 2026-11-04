@@ -1,6 +1,6 @@
 # ShiftWheel 3.5 installer project
 
-Status: source and build configuration, NOT a compiled or Windows-validated installer.
+Status: the Windows CI build produced an unsigned installer and passed packaged smoke checks on 2026-11-04. Hands-on Windows installation and desktop acceptance checks remain pending. See [VALIDATION.md](VALIDATION.md).
 
 ## Build once on Windows
 

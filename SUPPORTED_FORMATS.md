@@ -1,4 +1,4 @@
-# ShiftWheel 3.3 conversion boundaries
+# ShiftWheel conversion boundaries
 
 The menu offers supported source-to-target pairs. It cannot meaningfully convert every file to every format.
 
