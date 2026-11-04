@@ -29,7 +29,7 @@ Source: "dist\ShiftWheel\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdi
 Name: "{group}\ShiftWheel"; Filename: "{app}\ShiftWheel.exe"
 Name: "{autodesktop}\ShiftWheel"; Filename: "{app}\ShiftWheel.exe"; Tasks: desktopicon
 [Registry]
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "ShiftWheel"; ValueData: """{app}\ShiftWheel.exe""""; Tasks: startup; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "ShiftWheel"; ValueData: """{app}\ShiftWheel.exe"""; Tasks: startup; Flags: uninsdeletevalue
 [Run]
 Filename: "{app}\ShiftWheel.exe"; Description: "Launch ShiftWheel"; Flags: nowait postinstall skipifsilent
 [Code]
