@@ -1,9 +1,19 @@
 # Validation status
 
-The v3.5 app passed 166 distinct checks in the development environment, including real Office conversions. This repository keeps that application code unchanged.
+## Windows build — 2026-11-04
 
-Repository changes: Windows GitHub Actions workflow, CI Python selection, JUnit report output, dynamic installer version, Git exclusions and documentation. Workflow structure and repository contents are checked locally. The Windows workflow and installer have NOT been executed here.
+[Build 4](https://github.com/CovalschiPaul/ShiftWheel/actions/runs/41797363438) succeeded for commit d5ff618bb0a888c28a5c1d07e9260d4c0a713b43.
 
-The Windows runner installs FFmpeg for media tests. LibreOffice and Tesseract integrations run only if present; the personal PowerPoint sample is excluded. Missing engines must not be mistaken for complete external-engine coverage.
+- Windows tests: 157 passed, 9 skipped, 7 Qt deprecation warnings.
+- PyInstaller executable built successfully.
+- Packaged executable smoke checks passed: Qt initialization, imports, image conversion, PDF write/read and spreadsheet write/read.
+- Inno Setup compiled ShiftWheelSetup-3.5.exe successfully.
+- Installer, SHA256 record and resolved dependency record uploaded as ShiftWheel-Windows-4.
 
-Before distribution: run the workflow, download and inspect its diagnostics, test setup on Windows without Python, exercise Explorer drag/drop, then test startup, upgrade and uninstall. See INSTALLER_README.md for the detailed acceptance checklist.
+Fixed during Windows validation: explicit UTF-8 reading in a regression test, Python worker scheduling in the Qt test wait helper, and startup registry command quoting in the installer.
+
+## Scope and remaining checks
+
+The Windows runner installs FFmpeg for media tests. LibreOffice and Tesseract are not installed on that runner; their integrations and the private PowerPoint sample are skipped. Earlier development validation covered real Office conversions. External engines are not bundled into setup.
+
+Compilation and smoke checks do not verify interactive installation, Explorer drag/drop, real monitor scaling, startup, upgrade or uninstall. Test these on a Windows desktop using INSTALLER_README.md before distribution. The installer is unsigned.
