@@ -276,7 +276,8 @@ def wait_for(app, predicate, timeout=5):
     end = time.monotonic() + timeout
     while not predicate() and time.monotonic() < end:
         app.processEvents()
-        QTest.qWait(5)
+        # Yield the GIL so the Python worker can progress on Windows too.
+        time.sleep(0.005)
     assert predicate()
 
 
